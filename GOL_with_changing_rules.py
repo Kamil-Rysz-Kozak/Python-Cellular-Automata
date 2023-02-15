@@ -1,5 +1,5 @@
 """
-Program done by Kamil R. Kozak
+Program made by Kamil R. Kozak
 You may modify, share and monetize as long as you attribute it properly it or smth...
 Cellular Automaton with self-modifying rules
 Needs optimization and whole these, so any help will be welcome.
@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-neighbourhood_matrix = np.array([[0, 1, 1], [1, 0, 1], [0, 0, 1]])
+neighbourhood_matrix = np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]])
 
 #Function that gets neighbourhood matrix for each cell. Set default neighbourhood matrix to 0. [TO BE TESTED]
 def get_surrounding_matrix(binary_grid, i, j):
@@ -86,10 +86,15 @@ def update(frame, img, grid):
     return img
 
 def main():
-    grid = np.random.choice([0, 1], (100, 100))
+    """
+    grid = np.zeros((60, 60))
+    center_x, center_y = grid.shape[0] // 2, grid.shape[1] // 2                 #Grid with one cell alive in the middle.
+    grid[center_x, center_y] = 1
+    """
+    grid = np.random.choice([0, 1], (60, 60), p=[0.7, 0.3])                     #Grid with random cells, sparse. Modify p=[] to get differnet probabilities for 1s and 0s
     fig, ax = plt.subplots()
     img = ax.imshow(grid, interpolation='nearest')
-    anim = animation.FuncAnimation(fig, update, fargs=(img, grid), frames=24, interval=100)
+    anim = animation.FuncAnimation(fig, update, fargs=(img, grid), frames=10, interval=100)
     plt.show()
 
 if __name__ == '__main__':
